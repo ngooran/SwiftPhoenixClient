@@ -680,20 +680,6 @@ public class Socket: PhoenixTransportDelegate {
       var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
       else { fatalError("Malformed URL: \(endpoint)") }
 
-    // Ensure that the URL ends with "/websocket
-    if !urlComponents.path.contains("/websocket") {
-      // Do not duplicate '/' in the path
-      if urlComponents.path.last != "/" {
-        urlComponents.path.append("/")
-      }
-
-      // append 'websocket' to the path
-      urlComponents.path.append("websocket")
-
-    }
-
-    urlComponents.queryItems = [URLQueryItem(name: "vsn", value: vsn)]
-
     // If there are parameters, append them to the URL
     if let params = params?() {
       urlComponents.queryItems?.append(contentsOf: params.map {
